@@ -1,17 +1,62 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,session,redirect,url_for,flash
 from flask_script import Manager
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
 
+from flask_wtf import Form
+from wtforms import StringField,SubmitField
+from wtforms.validators import Required
+
+from flask_sqlalchemy import SQLAlchemy
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt='%a, %d %b %Y %H:%M:%S',
+                filename='myapp.log',
+                filemode='w')
+
+class NameForm(Form):
+	name=StringField('what is your name?',validators=[Required()]);
+	submit=SubmitField('submit');
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'just do it more'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///'+os.path.join(basedir,'data.sqlite')
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
 
-@app.route('/')
+db=SQLAlchemy(app)
+
+class Role(db.Model):
+	__tablename__='roles'
+	id=db.Column(db.Integer,primary_key=True)
+	name=db.Column(db.String(64),unique=True)
+	
+	def __repr__(self):
+		return '<Role %r>' % self.name
+		
+class User(db.Model):
+	__tablename__='users'
+	id=db.Column(db.Integer,primary_key=True)
+	username=db.Column(db.String(64),unique=True,index=True)
+	
+	def __repr__(self):
+		return '<User %r>' % self.username
+
+@app.route('/',methods=['GET','POST'])
 def index():
-	# user_agent = request.headers.get('User-Agent')
-	# return '<h1>hello ,your browser is %s</h1>' % user_agent;
-	return render_template('index.html',current_time=datetime.utcnow());
+	form = NameForm();
+	if form.validate_on_submit():
+		old_name = session.get('name')
+		if old_name is not None and old_name != form.name.data:
+			flash('Looks like you have changed your name!')
+		session['name']=form.name.data
+		logging.info('name=%s'%session.get('name'))
+		return redirect(url_for('index'))
+	logging.info('name=%s'%session.get('name'))
+	return render_template('index.html',form=form,name=session.get('name'));
 
 from flask import make_response
 @app.route('/response')
