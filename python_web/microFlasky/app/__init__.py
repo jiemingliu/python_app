@@ -24,18 +24,23 @@ class NameForm(Form):
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'just do it more'
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///'+os.path.join(basedir,'data.sqlite')
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
+app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+manager = Manager(app)
+bootstrap = Bootstrap(app)
+moment = Moment(app)
 db=SQLAlchemy(app)
 
 class Role(db.Model):
 	__tablename__='roles'
 	id=db.Column(db.Integer,primary_key=True)
 	name=db.Column(db.String(64),unique=True)
+	users = db.relationship('User',backref = 'role')
 	
 	def __repr__(self):
 		return '<Role %r>' % self.name
+	#users=db.relationship('User',backref='role')
 		
 class User(db.Model):
 	__tablename__='users'
@@ -44,6 +49,7 @@ class User(db.Model):
 	
 	def __repr__(self):
 		return '<User %r>' % self.username
+	
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -77,8 +83,5 @@ def page_not_found(e):
 def internal_server_error(e):
 	return render_template('500.html'),500
 
-manager = Manager(app)
-bootstrap = Bootstrap(app)
-moment = Moment(app)
 if __name__ == '__main__':
 	manager.run()
