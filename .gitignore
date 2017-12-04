@@ -1,3 +1,4 @@
 # 忽略文件夹
 /python_web/microFlasky/env
 /python_web/microFlasky/app/__pycache__
+/python_web/microFlasky/myapp.log

@@ -9,6 +9,7 @@ from wtforms import StringField,SubmitField
 from wtforms.validators import Required
 
 from flask_sqlalchemy import SQLAlchemy
+import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 import logging
@@ -46,6 +47,7 @@ class User(db.Model):
 	__tablename__='users'
 	id=db.Column(db.Integer,primary_key=True)
 	username=db.Column(db.String(64),unique=True,index=True)
+	role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
 	
 	def __repr__(self):
 		return '<User %r>' % self.username
@@ -55,14 +57,18 @@ class User(db.Model):
 def index():
 	form = NameForm();
 	if form.validate_on_submit():
-		old_name = session.get('name')
-		if old_name is not None and old_name != form.name.data:
-			flash('Looks like you have changed your name!')
-		session['name']=form.name.data
-		logging.info('name=%s'%session.get('name'))
+		user = User.query.filter_by(username = form.name.data).first()
+		if user is None:
+			user = User(username = form.name.data)
+			db.session.add(user)
+			session['known'] = False
+		else:
+			session['known'] = True
+		session['name'] = form.name.data
+		form.name.data = ''
 		return redirect(url_for('index'))
-	logging.info('name=%s'%session.get('name'))
-	return render_template('index.html',form=form,name=session.get('name'));
+	return render_template('index.html',form=form,name=session.get('name'),
+							session.get('known',False));
 
 from flask import make_response
 @app.route('/response')
