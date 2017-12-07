@@ -34,40 +34,41 @@ moment = Moment(app)
 db=SQLAlchemy(app)
 
 class Role(db.Model):
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
-    users = db.relationship('User', backref='role', lazy='dynamic')
-
-    def __repr__(self):
-        return '<Role %r>' % self.name
-
-
+	__tablename__='roles'
+	id=db.Column(db.Integer,primary_key=True)
+	name=db.Column(db.String(64),unique=True)
+	users = db.relationship('User',backref = 'role')
+	
+	def __repr__(self):
+		return '<Role %r>' % self.name
+	#users=db.relationship('User',backref='role')
+		
 class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, index=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+	__tablename__='users'
+	id=db.Column(db.Integer,primary_key=True)
+	username=db.Column(db.String(64),unique=True,index=True)
+	role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+	
+	def __repr__(self):
+		return '<User %r>' % self.username
+	
 
-    def __repr__(self):
-        return '<User %r>' % self.username
-
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/',methods=['GET','POST'])
 def index():
-    form = NameForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.name.data).first()
-        if user is None:
-            user = User(username=form.name.data)
-            db.session.add(user)
-            db.session.commit()
-            session['known'] = False
-        else:
-            session['known'] = True
-        session['name'] = form.name.data
-        return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'),known=session.get('known', False))
+	form = NameForm();
+	if form.validate_on_submit():
+		user = User.query.filter_by(username = form.name.data).first()
+		if user is None:
+			user = User(username = form.name.data)
+			db.session.add(user)
+			session['known'] = False
+		else:
+			session['known'] = True
+		session['name'] = form.name.data
+		form.name.data = ''
+		return redirect(url_for('index'))
+	return render_template('index.html',form=form,name=session.get('name'),
+							session.get('known',False));
 
 from flask import make_response
 @app.route('/response')
@@ -89,4 +90,5 @@ def internal_server_error(e):
 	return render_template('500.html'),500
 
 if __name__ == '__main__':
+>>>>>>> 2f0e08c69f3c2d2b21ae520f8e1be1dfda88fcb2
 	manager.run()
