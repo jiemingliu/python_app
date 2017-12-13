@@ -1,5 +1,5 @@
 from flask import Flask,request,render_template,session,redirect,url_for,flash
-from flask_script import Manager
+from flask_script import Manager,Shell
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -9,6 +9,7 @@ from wtforms import StringField,SubmitField
 from wtforms.validators import Required
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate,MigrateCommand
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -32,6 +33,8 @@ manager = Manager(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 db=SQLAlchemy(app)
+migrate = Migrate(app,db)
+manager.add_command('db',MigrateCommand)
 
 class Role(db.Model):
 	__tablename__='roles'
@@ -41,7 +44,6 @@ class Role(db.Model):
 	
 	def __repr__(self):
 		return '<Role %r>' % self.name
-	#users=db.relationship('User',backref='role')
 		
 class User(db.Model):
 	__tablename__='users'
@@ -51,7 +53,11 @@ class User(db.Model):
 	
 	def __repr__(self):
 		return '<User %r>' % self.username
-	
+
+#定义回调函数，通过shell命令(python app.py shell)，直接导入特定的对象
+def make_shell_context():
+	return dict(app=app,db=db,User=User,Role=Role)
+manager.add_command("shell",Shell(make_context=make_shell_context))
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -61,6 +67,7 @@ def index():
 		if user is None:
 			user = User(username = form.name.data)
 			db.session.add(user)
+			db.session.commit()
 			session['known'] = False
 		else:
 			session['known'] = True
@@ -68,7 +75,7 @@ def index():
 		form.name.data = ''
 		return redirect(url_for('index'))
 	return render_template('index.html',form=form,name=session.get('name'),
-							session.get('known',False));
+							known = session.get('known',False));
 
 from flask import make_response
 @app.route('/response')
@@ -90,5 +97,4 @@ def internal_server_error(e):
 	return render_template('500.html'),500
 
 if __name__ == '__main__':
->>>>>>> 2f0e08c69f3c2d2b21ae520f8e1be1dfda88fcb2
 	manager.run()
