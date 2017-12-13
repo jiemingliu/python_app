@@ -10,6 +10,7 @@ from wtforms.validators import Required
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate,MigrateCommand
+from flask_mail import Mail
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -25,16 +26,29 @@ class NameForm(Form):
 	submit=SubmitField('submit');
 
 app = Flask(__name__)
+
+#数据库配置
 app.config['SECRET_KEY'] = 'just do it more'
 app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+#邮件服务器配置
+app.config['MAIL_SERVER'] = 'smtp.qq.com'
+app.config['MAIL_PORT'] = 25
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+
+#初始化方式
 manager = Manager(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+
 db=SQLAlchemy(app)
 migrate = Migrate(app,db)
 manager.add_command('db',MigrateCommand)
+
+mail = Mail(app)
 
 class Role(db.Model):
 	__tablename__='roles'
