@@ -1,5 +1,5 @@
 from flask import render_template, session, redirect, url_for, current_app
-from .. import db
+from ..createApp import db
 from ..modules import User
 from ..email import send_email
 from . import main
