@@ -1,6 +1,6 @@
 import os
 from app.createApp import create_app,db
-from app.modules import User,Role
+from app.models import User,Role
 from flask_script import Manager,Shell
 from flask_migrate import Migrate,MigrateCommand
 
