@@ -1,6 +1,10 @@
 # 忽略文件夹
 /python_web/microFlasky/env
 /python_web/microFlasky/app/__pycache__
-/python_web/microFlasky/myapp.log
 /python_web/microFlasky/app/main/__pycache__
 /python_web/microFlasky/__pycache__
+/python_web/microFlasky/.vscode
+/python_web/microFlasky/app/auth/__pycache__
+
+# 忽略的文件
+/python_web/microFlasky/myapp.log
