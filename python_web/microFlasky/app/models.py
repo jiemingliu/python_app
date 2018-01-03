@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from .createApp import login_manager
 from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from microFlasky import logger
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -33,6 +34,8 @@ class User(UserMixin,db.Model):
 		self.password_hash = generate_password_hash(password)
 		
 	def verify_password(self,password):
+		result = check_password_hash(self.password_hash,password)
+		logger.info("verify`s result is %s" % result)
 		return check_password_hash(self.password_hash,password)
 
 	def generate_confirmation_token(self,expiration=3600):

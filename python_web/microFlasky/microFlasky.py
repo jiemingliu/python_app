@@ -4,8 +4,8 @@ from app.models import User,Role
 from flask_script import Manager,Shell
 from flask_migrate import Migrate,MigrateCommand
 
-import logging
-logging.basicConfig(level=logging.DEBUG,
+import logging as logger
+logger.basicConfig(level=logger.DEBUG,
                 format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
                 datefmt='%a, %d %b %Y %H:%M:%S',
                 filename='myapp.log',
@@ -25,3 +25,4 @@ manager.add_command('db',MigrateCommand)
 
 if __name__ == '__main__':
 	manager.run()
+	logger.info('start successfully')
