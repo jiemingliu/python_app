@@ -2,7 +2,7 @@ from flask import render_template,redirect,url_for,flash,request
 from flask_login import login_user,logout_user,login_required,current_user
 from . import auth
 from ..models import User
-from ..createApp import db
+from .. import db
 from .forms import LoginForm,RegistrationForm,ChangePasswordForm
 from ..email import send_email
 from microFlasky import logger
@@ -28,6 +28,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        logger.info("login_user:%s" % login_user)
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             logger.info("login_user:%s" % login_user)
