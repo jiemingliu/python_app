@@ -3,14 +3,14 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
 	SECRET_KEY = os.environ.get('SECRET_KEY') or 'just do it more'
-	MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.googlemail.com')
-	MAIL_PORT = int(os.environ.get('MAIL_PORT', '25'))
-	MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in \
-		['true', 'on', '1']
+	MAIL_SERVER = os.environ.get('MAIL_SERVER') or 'smtp.exmail.qq.com'
+	MAIL_PORT = 25#int(os.environ.get('MAIL_PORT')) or 25
+	#MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in \
+	#	['true', 'on', '1']
 	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 	FLASKY_MAIL_SUBJECT_PREFIX = 'This is from Lmj'
-	FLASKY_MAIL_SENDER = 'Flasky Admin <liumingjie.blog@foxmail.com>'
+	FLASKY_MAIL_SENDER = 'liumingjie.blog@foxmail.com'
 	FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN') or 'liumingjie.blog@foxmail.com'
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	

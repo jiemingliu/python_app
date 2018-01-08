@@ -1,7 +1,8 @@
 from flask import render_template
+from flask_login import login_required
 from . import main
-from decorators import admin_required,permission_required
-from .models import Permission
+from ..decorators import admin_required,permission_required
+from ..models import Permission
 
 
 @main.route('/')
