@@ -12,6 +12,7 @@ logger.basicConfig(level=logger.DEBUG,
                 filemode='w')
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+#logger.info('config is:%s' % app.config)
 manager = Manager(app)
 migrate = Migrate(app,db)
 

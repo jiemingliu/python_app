@@ -25,7 +25,7 @@ def unconfirmed():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    logger.info("this is from auth.login")
+    logger.info('this is from auth.login')
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
