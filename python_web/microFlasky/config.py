@@ -2,16 +2,16 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-	SECRET_KEY = 'just do it more' #os.environ.get('SECRET_KEY') or 'just do it more'
-	MAIL_SERVER = 'smtp.163.com' #os.environ.get('MAIL_SERVER') or 'smtp.163.com'
-	MAIL_PORT = 25 #int(os.environ.get('MAIL_PORT')) or 25
+	SECRET_KEY = os.environ.get('SECRET_KEY') or 'just do it more'
+	MAIL_SERVER = os.environ.get('MAIL_SERVER') or 'smtp.163.com'
+	MAIL_PORT = int(os.environ.get('MAIL_PORT')) if os.environ.get('MAIL_PORT') is not None else 25
 	MAIL_USE_TLS = True
 	MAIL_USE_SSL = False
-	MAIL_USERNAME = 'liumingjie_blog@163.com' #os.environ.get('MAIL_USERNAME')
-	MAIL_PASSWORD = '626231329mingjie' #os.environ.get('MAIL_PASSWORD')
+	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 	FLASKY_MAIL_SUBJECT_PREFIX = 'This is from Lmj'
-	FLASKY_MAIL_SENDER = 'liumingjie_blog@163.com' #os.environ.get('MAIL_USERNAME') or 'liumingjie_blog@163.com'
-	FLASKY_ADMIN = 'liumingjie.blog@foxmail.com' #os.environ.get('FLASKY_ADMIN') or 'liumingjie.blog@foxmail.com'
+	FLASKY_MAIL_SENDER = os.environ.get('MAIL_USERNAME') or 'liumingjie_blog@163.com'
+	FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN') or 'liumingjie.blog@foxmail.com'
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	
 	@staticmethod
