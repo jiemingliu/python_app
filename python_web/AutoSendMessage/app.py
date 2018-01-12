@@ -8,12 +8,6 @@ from SendMessage import sendMessage
 import time
 import xlrd
 
-ex = xlrd.open_workbook(r'test.xlsx')
-sheet1 = ex.sheet_by_index(0)
-cCols = sheet1.col_values(2)
-for i in cCols:
-	print(i)
-
 driver_url = r"D:\Tools\driverTools\chromedriver.exe"
 network_url = r'http://cloud.jiabenyi.com/admin'
 
@@ -52,6 +46,10 @@ driver.get(goutong_url)
 
 time.sleep(2)
 
+ex = xlrd.open_workbook(r'test.xlsx')
+sheet1 = ex.sheet_by_index(0)
+cCols = sheet1.col_values(2)
+for i in cCols:
+	print("i = %d ---------------" % i)
+	sendMessage(driver,int(i))
 
-
-sendMessage(driver,13618615940)
