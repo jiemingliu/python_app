@@ -5,6 +5,8 @@
 /python_web/microFlasky/__pycache__
 /python_web/microFlasky/.vscode
 /python_web/microFlasky/app/auth/__pycache__
+/python_web/AutoSendMessage/__pycache__
+/python_web/AutoSendMessage/env
 
 # 忽略的文件
 /python_web/microFlasky/myapp.log
