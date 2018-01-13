@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import time
 from selenium.webdriver.common.keys import Keys
 
