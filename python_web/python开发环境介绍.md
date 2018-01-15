@@ -15,4 +15,4 @@
 然后打包库，执行代码 pip freeze >requirements.txt  
 pip install --download c:\python35\packages -r requirements.txt  
 第三步：拷贝packages文件夹和requirements.txt,packages文件夹放在C:\python36下，requirements.txt放在C:\Python35\Scripts下  
-然后执行 pip install --no-index --find-index=C:\Python35\packages -r requirements.txt
+然后执行 pip install --no-index --find-links=C:\Python35\packages -r requirements.txt (python27中--find-links改为--find-index)
