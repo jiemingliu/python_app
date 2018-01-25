@@ -13,6 +13,8 @@ class Config:
 	FLASKY_MAIL_SENDER = os.environ.get('MAIL_USERNAME') or 'liumingjie_blog@163.com'
 	FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN') or 'liumingjie.blog@foxmail.com'
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+	FLASKY_POSTS_PER_PAGE = 12
 	
 	@staticmethod
 	def init_app(app):
