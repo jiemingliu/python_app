@@ -201,9 +201,9 @@ class User(UserMixin,db.Model):
 class Permission:
 	FOLLOW = 0X01
 	COMMENT = 0X02
-	WRITE_ARTICLES = 0X04
-	MODERATE_COMMENTS = 0X08
-	ADMINISTER = 0X80
+	WRITE = 0X04
+	MODERATE = 0X08
+	ADMIN = 0X80
 
 class AnonymousUser(AnonymousUserMixin):
 	def can(self,permissions):
