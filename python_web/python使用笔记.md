@@ -15,3 +15,6 @@
 3. python语法相关  
 3.1 Python为装饰器提供了一个很友好的“语法糖”——@，让我们可以很方便的使用装饰器，装饰的原理不做过多阐述，简言之你在一个函数func上加上@decorator_func, 就相当于decorator_func(func)
 3.2 小括号-元组(不可更改)，中括号-列表，大括号-键值对或容器
+
+## ipython
+run name.py 运行python文件
