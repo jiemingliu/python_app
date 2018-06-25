@@ -1,13 +1,13 @@
 # 忽略文件夹
-/python_web/microFlasky/env
-/python_web/microFlasky/app/__pycache__
-/python_web/microFlasky/app/main/__pycache__
-/python_web/microFlasky/__pycache__
-/python_web/microFlasky/.vscode
-/python_web/microFlasky/app/auth/__pycache__
-/python_web/AutoSendMessage/__pycache__
-/python_web/AutoSendMessage/env
-/python_web/AutoSendMessage/.vscode
+/Python_App/microFlasky/env
+/Python_App/microFlasky/app/__pycache__
+/Python_App/microFlasky/app/main/__pycache__
+/Python_App/microFlasky/__pycache__
+/Python_App/microFlasky/.vscode
+/Python_App/microFlasky/app/auth/__pycache__
+/Python_App/AutoSendMessage/__pycache__
+/Python_App/AutoSendMessage/env
+/Python_App/AutoSendMessage/.vscode
 
 # 忽略的文件
-/python_web/microFlasky/myapp.log
+/Python_App/microFlasky/myapp.log

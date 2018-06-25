@@ -1,3 +1,3 @@
-# web_app
-1. Tips:在github上的html文件，打开html所在页面，在链接前面加上http://htmlpreview.github.com/?可访问该html页面
-2. 1:python开发web应用,其中microBlog是运行在虚拟python环境上，安装虚拟环境 virtualenv flask,会在当前目录安装一个python环境，运行flask\Scripts\pip install 来安装需要的库，运行flask\Scripts\python run.py 可以启动服务
+# 此处有两个项目
+## 项目一(AutoSendMessage)：利用python模拟鼠标点击网页，实现自动化操作，读取Excel文件，自动发送网页消息
+## 项目二(microFlasky)：本应用为Python服务端，采用的框架是Flask，功能类似于微博的交友平台
