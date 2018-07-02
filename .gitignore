@@ -5,9 +5,18 @@
 /Python_App/microFlasky/__pycache__
 /Python_App/microFlasky/.vscode
 /Python_App/microFlasky/app/auth/__pycache__
+
 /Python_App/AutoSendMessage/__pycache__
 /Python_App/AutoSendMessage/env
 /Python_App/AutoSendMessage/.vscode
 
+/Python_App/connectWifi/env
+/Python_App/connectWifi/Include
+/Python_App/connectWifi/Lib
+/Python_App/connectWifi/Scripts
+/Python_App/connectWifi/tcl
+
 # 忽略的文件
 /Python_App/microFlasky/myapp.log
+
+/Python_App/connectWifi/pip-selfcheck.json
